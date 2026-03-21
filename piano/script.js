@@ -1,121 +1,76 @@
+const keys = [ //Noten-Objekte
+    { note: "C4", key: "a", id: "keyC" },
+    { note: "D4", key: "s", id: "keyD" },
+    { note: "E4", key: "d", id: "keyE" },
+    { note: "F4", key: "f", id: "keyF" },
+    { note: "G4", key: "j", id: "keyG" },
+    { note: "A4", key: "k", id: "keyA" },
+    { note: "B4", key: "l", id: "keyB" },
+    { note: "C#4", key: "w", id: "keyCis" },
+    { note: "D#4", key: "e", id: "keyDis" },
+    { note: "F#4", key: "u", id: "keyFis" },
+    { note: "G#4", key: "i", id: "keyGis" },
+    { note: "A#4", key: "o", id: "keyAis" }
+];
+
 let sounds = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C#4', 'D#4', 'F#4', 'G#4', 'A#4'];
 
-document.addEventListener("keydown", function (event) {
+let loadedNotes = [];
 
-    if(event.key.toLowerCase() === "a") {
-        playSound(0);
-        document.getElementById("keyC").style.backgroundColor = "#d9d9d9";
-    } else if(event.key.toLowerCase() === "s") {
-        playSound(1);
-        document.getElementById("keyD").style.backgroundColor = "#d9d9d9";
-    } else if(event.key.toLowerCase() === "d") {
-        playSound(2);
-        document.getElementById("keyE").style.backgroundColor = "#d9d9d9";
-    } else if(event.key.toLowerCase() === "f") {
-        playSound(3);
-        document.getElementById("keyF").style.backgroundColor = "#d9d9d9";
-    } else if(event.key.toLowerCase() === "j") {
-        playSound(4);
-        document.getElementById("keyG").style.backgroundColor = "#d9d9d9";
-    } else if(event.key.toLowerCase() === "k") {
-        playSound(5);
-        document.getElementById("keyA").style.backgroundColor = "#d9d9d9";
-    } else if(event.key.toLowerCase() === "l") {
-        playSound(6);
-        document.getElementById("keyB").style.backgroundColor = "#d9d9d9";
-    } else if(event.key.toLowerCase() === "w") {
-        playSound(7);
-        document.getElementById("keyCis").style.backgroundColor = "#4c4c4c";
-    } else if(event.key.toLowerCase() === "e") {
-        playSound(8);
-        document.getElementById("keyDis").style.backgroundColor = "#4c4c4c";
-    } else if(event.key.toLowerCase() === "u") {
-        playSound(9);
-        document.getElementById("keyFis").style.backgroundColor = "#4c4c4c";
-    } else if(event.key.toLowerCase() === "i") {
-        playSound(10);
-        document.getElementById("keyGis").style.backgroundColor = "#4c4c4c";
-    } else if(event.key.toLowerCase() === "o") {
-        playSound(11);
-        document.getElementById("keyAis").style.backgroundColor = "#4c4c4c";
+async function loadNotes(file = "song1.json") {
+    try {
+        const response = await fetch("songs/" + file);
+        const data = await response.json();
+        loadedNotes = data.notes;
+
+        console.log("Loaded Song:", data.song);
+        console.log("Notes:", loadedNotes);
+    } catch (error) {
+        console.error("Error loading notes:", error);
     }
+}
+
+loadNotes();
+
+//Abspeielen durch Tastatur
+document.addEventListener("keydown", function (event) {
+    keys.forEach(k => {
+        if (event.key.toLowerCase() === k.key) {
+            playSound(sounds.indexOf(k.note));
+            document.getElementById(k.id).style.backgroundColor =
+                k.id.includes("is") ? "#4c4c4c" : "#d9d9d9";
+        }
+    });
 });
 
 document.addEventListener("keyup", function (event) {
-    switch (event.key.toLowerCase()) {
-        case "a": document.getElementById("keyC").style.backgroundColor = "#ffffff"; break;
-        case "s": document.getElementById("keyD").style.backgroundColor = "#ffffff"; break;
-        case "d": document.getElementById("keyE").style.backgroundColor = "#ffffff"; break;
-        case "f": document.getElementById("keyF").style.backgroundColor = "#ffffff"; break;
-        case "j": document.getElementById("keyG").style.backgroundColor = "#ffffff"; break;
-        case "k": document.getElementById("keyA").style.backgroundColor = "#ffffff"; break;
-        case "l": document.getElementById("keyB").style.backgroundColor = "#ffffff"; break;
-        case "w": document.getElementById("keyCis").style.backgroundColor = "#000000"; break;
-        case "e": document.getElementById("keyDis").style.backgroundColor = "#000000"; break;
-        case "u": document.getElementById("keyFis").style.backgroundColor = "#000000"; break;
-        case "i": document.getElementById("keyGis").style.backgroundColor = "#000000"; break;
-        case "o": document.getElementById("keyAis").style.backgroundColor = "#000000"; break;
-    }
+    keys.forEach(k => {
+        if (event.key.toLowerCase() === k.key) {
+            document.getElementById(k.id).style.backgroundColor =
+                k.id.includes("is") ? "#000000" : "#ffffff";
+        }
+    });
 });
 
+//ABspielen durch MAusklick:
 document.addEventListener("mousedown", function (event) {
-
-    if(event.target.id === "keyC") {
-        playSound(0);
-        document.getElementById("keyC").style.backgroundColor = "#d9d9d9";
-    } else if(event.target.id === "keyD") {
-        playSound(1);
-        document.getElementById("keyD").style.backgroundColor = "#d9d9d9";
-    } else if(event.target.id === "keyE") {
-        playSound(2);
-        document.getElementById("keyE").style.backgroundColor = "#d9d9d9";
-    } else if(event.target.id === "keyF") {
-        playSound(3);
-        document.getElementById("keyF").style.backgroundColor = "#d9d9d9";
-    } else if(event.target.id === "keyG") {
-        playSound(4);
-        document.getElementById("keyG").style.backgroundColor = "#d9d9d9";
-    } else if(event.target.id === "keyA") {
-        playSound(5);
-        document.getElementById("keyA").style.backgroundColor = "#d9d9d9";
-    } else if(event.target.id === "keyB") {
-        playSound(6);
-        document.getElementById("keyB").style.backgroundColor = "#d9d9d9";
-    } else if(event.target.id === "keyCis") {
-        playSound(7);
-        document.getElementById("keyCis").style.backgroundColor = "#4c4c4c";
-    } else if(event.target.id === "keyDis") {
-        playSound(8);
-        document.getElementById("keyDis").style.backgroundColor = "#4c4c4c";
-    } else if(event.target.id === "keyFis") {
-        playSound(9);
-        document.getElementById("keyFis").style.backgroundColor = "#4c4c4c";
-    } else if(event.target.id === "keyGis") {
-        playSound(10);
-        document.getElementById("keyGis").style.backgroundColor = "#4c4c4c";
-    } else if(event.target.id === "keyAis") {
-        playSound(11);
-        document.getElementById("keyAis").style.backgroundColor = "#4c4c4c";
-    }
+    keys.forEach(k => {
+        if (event.target.id === k.id) {
+            playSound(sounds.indexOf(k.note));
+            document.getElementById(k.id).style.backgroundColor =
+                k.id.includes("is") ? "#4c4c4c" : "#d9d9d9";
+        }
+    });
 });
 
 document.addEventListener("mouseup", function (event) {
-    switch (event.target.id) {
-        case "keyC": document.getElementById("keyC").style.backgroundColor = "#ffffff"; break;
-        case "keyD": document.getElementById("keyD").style.backgroundColor = "#ffffff"; break;
-        case "keyE": document.getElementById("keyE").style.backgroundColor = "#ffffff"; break;
-        case "keyF": document.getElementById("keyF").style.backgroundColor = "#ffffff"; break;
-        case "keyG": document.getElementById("keyG").style.backgroundColor = "#ffffff"; break;
-        case "keyA": document.getElementById("keyA").style.backgroundColor = "#ffffff"; break;
-        case "keyB": document.getElementById("keyB").style.backgroundColor = "#ffffff"; break;
-        case "keyCis": document.getElementById("keyCis").style.backgroundColor = "#000000"; break;
-        case "keyDis": document.getElementById("keyDis").style.backgroundColor = "#000000"; break;
-        case "keyFis": document.getElementById("keyFis").style.backgroundColor = "#000000"; break;
-        case "keyGis": document.getElementById("keyGis").style.backgroundColor = "#000000"; break;
-        case "keyAis": document.getElementById("keyAis").style.backgroundColor = "#000000"; break;
-    }
+    keys.forEach(k => {
+        if (event.target.id === k.id) {
+            document.getElementById(k.id).style.backgroundColor =
+                k.id.includes("is") ? "#000000" : "#ffffff";
+        }
+    });
 });
-
 
 
 function playSound(note) {
@@ -123,3 +78,99 @@ function playSound(note) {
     let audio = new Audio(`sounds/${encodeURIComponent(sounds[note])}.mp3`);
     audio.play();
 }
+
+
+//Songs abspielen:
+
+let isPlaying = false;
+let currentIndex = 0;
+let interval = null;
+
+function playSong() {
+    if (loadedNotes.length === 0) {
+        console.log("keine Noten geladen, loadedNotes ist leer");
+        return;
+    }
+
+    isPlaying = true;
+
+    interval = setInterval(() => {
+        if (currentIndex >= loadedNotes.length) { //song ist zu Ende
+            clearInterval(interval);
+            isPlaying = false;
+            currentIndex = 0;
+            return;
+        }
+
+        let note = loadedNotes[currentIndex]; //aktuelle Note aus Array
+
+        let keyPlay = keys.find(k => k.note === note); //richtige Taste finden
+
+        if (keyPlay) {
+            playSound(sounds.indexOf(note));
+
+            let taste = document.getElementById(keyPlay.id);
+            taste.style.backgroundColor =
+                keyPlay.id.includes("is") ? "#4c4c4c" : "#d9d9d9";
+
+            // nach kurzer Zeit zurücksetzen
+            setTimeout(() => {
+                taste.style.backgroundColor = keyPlay.id.includes("is") ? "#000000" : "#ffffff"; //back zu schwarz bei -is
+            }, 300);
+        }
+
+        currentIndex++;
+    }, 600);
+}
+
+// funktion Puasieren
+function pauseSong() {
+    clearInterval(interval);
+    isPlaying = false;
+}
+
+//Song spielen mit Tastatur, p spielen, Leertaste pausieren
+document.addEventListener("keydown", function (event) {
+
+    if (event.key.toLowerCase() === "p") {
+        if (!isPlaying) {
+            playSong();
+        }
+    }
+
+    if (event.key === " ") {
+        pauseSong();
+    }
+});
+
+//abspielen mit Button
+document.getElementById("playButton").addEventListener("click", () => {
+    if (!isPlaying) playSong();
+});
+
+//pausieren mit Button 
+document.getElementById("pauseButton").addEventListener("click", pauseSong);
+
+//zurücksetzen
+function resetApp() {
+    clearInterval(interval);
+    isPlaying = false;
+    currentIndex = 0;
+
+    keys.forEach(k => {
+        let taste = document.getElementById(k.id);
+        taste.style.backgroundColor =
+            k.id.includes("is") ? "#000000" : "#ffffff";
+    });
+
+    console.log("zurückgesetzt");
+}
+
+document.getElementById("resetButton").addEventListener("click", resetApp);
+
+//songs wechseln:
+document.getElementById("songAuswahl").addEventListener("change", function () {
+    let selectedFile = this.value;
+    loadNotes(selectedFile);
+    resetApp();
+});
