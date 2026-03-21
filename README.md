@@ -15,4 +15,4 @@ This repository contains small interactive web games built with HTML, CSS and Ja
 - JavaScript DOM Manipulation
 
 ## How to run
-Open `index.html` in your browser.
+Open `https://bicxi.github.io/mini-web-games/` in your browser.
