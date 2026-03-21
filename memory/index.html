@@ -9,41 +9,30 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="text-center my-4">Memory Game</h1>
-        <div id="game-board" class="row justify-content-center">
-            <div onclick="clicked(0)" class="card" id="card0">
-                <p id="cardText0">?</p>
-            </div>
-            <div onclick="clicked(1)" class="card" id="card1">
-                <p id="cardText1">?</p>
-            </div>
-            <div onclick="clicked(2)" class="card" id="card2">
-                <p id="cardText2">?</p>
-            </div>
-            <div onclick="clicked(3)" class="card" id="card3">
-                <p id="cardText3">?</p>
-            </div>
-            <div onclick="clicked(4)" class="card" id="card4">
-                <p id="cardText4">?</p>
-            </div>
-            <div onclick="clicked(5)" class="card" id="card5">
-                <p id="cardText5">?</p>
-            </div>
-            <div onclick="clicked(6)" class="card" id="card6">
-                <p id="cardText6">?</p>
-            </div>
-            <div onclick="clicked(7)" class="card" id="card7">
-                <p id="cardText7">?</p>
-            </div>
+    <div class="container text-center align-items-center">
+        <h1 class="text-center mt-4 mb-1">Memory Game</h1>
+        <p>Find all Emoji matches!</p>
+
+        <div id="game-board" class="row justify-content-center mt-4">
+            <!--Karten kommen hier hin-->
         </div>
+
         <p class="mt-4" id="moveMessage">0 Moves</p>
-        <h2 class="mt-2" id="matchMessage"></h2>
+        <p id="matchesMessage">0 Matches</p>
+        <div id="difficulty" class="mt-3">
+            <p>Difficulty:</p>
+            <button id="difEasy" class="btn btn-secondary mt-2">Easy</button>
+            <button id="difNormal" class="btn btn-secondary mt-2">Normal</button>
+            <button id="difHard" class="btn btn-secondary mt-2">Hard</button>
+        </div>
+        <button id="newGame2" class="btn btn-primary mt-4">New Game</button>
+        <h2 class="mt-4" id="matchMessage"></h2>
 
         <div id="winningMessage">
             <h1>You won!</h1>
+            <p class="mt-4" id="moveMessageFinal"></p>
             <p>Do you want to play another round?</p>
-            <button onclick="location.reload()">New Game</button>
+            <button id="newGame" class="btn btn-primary mt-4">New Game</button>
         </div>
     </div>
     <script src="script.js"></script>

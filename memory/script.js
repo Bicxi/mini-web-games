@@ -1,77 +1,143 @@
 
-let cards = ['apple', 'apple', 'banana', 'banana', 'grape', 'grape', 'orange', 'orange'];
+let allCards = ['🤑', '🤑', '🤡', '🤡', '😴', '😴', '🥶', '🥶', '👿', '👿', '💀', '💀', '🎃', '🎃', '🤢', '🤢'];
+let flippedCards = [];
 
-function shuffle(array) {
-    array.sort(() => Math.random() - 0.5);
+//DIFFICULTY
+let difficulty = 12;
+const difficulties = { difEasy: 8, difNormal: 12, difHard: 16 };
+
+document.getElementById("difNormal").classList.add("btn-primary");
+
+document.getElementById("difficulty").addEventListener("click", function(event){
+    const button = event.target.closest("button");
+    if(!button) return; // damit nicht klick auf div
+
+    if(matchCounter > 0 || moveTracker > 0) {
+        alert("You already started a game! Please start a new game to change the difficulty.");
+        return;
+    }
+
+    document.querySelectorAll("#difficulty button").forEach(btn => btn.classList.remove("btn-primary"));
+    button.classList.add("btn-primary");
+
+    difficulty = difficulties[button.id];
+
+    setupGame();
+});
+
+//KARTEN WERDEN GEMISCHT
+function shuffle(cards) {
+    cards.sort(() => Math.random() - 0.5);
 }
-shuffle(cards);
-console.log(cards); 
 
-document.getElementById("winningMessage").style.display = "none";
+//KARTEN ERSTELLEN
+const gameboard = document.getElementById("game-board");
+
+function setupGame(){
+    gameboard.innerHTML = "";
+
+    cards = allCards.slice(0, difficulty); //kopiert + kürzt
+    shuffle(cards);
+    console.log(cards);
+
+    cards.forEach(symbol => {
+        const card = document.createElement("div"); //card
+        card.classList.add('card');
+        card.dataset.symbol = symbol;
+        card.addEventListener('click', flipCard);
+        gameboard.appendChild(card);
+    });
+}
+
+//MESSAGES und TRACKER
+let winningMessage = document.getElementById("winningMessage");
+let matchMessage = document.getElementById("matchMessage");
+let matchesMessage = document.getElementById("matchesMessage");
+let moveMessage = document.getElementById("moveMessage");
+
 let checkMatchProcess = 0;
 let moveTracker = 0;
 let matchCounter = 0;
-let cardOne = null;
-let cardTwo = null;
 
-function clicked(cardNumb) { 
+function flipCard(event) {
     if(checkMatchProcess == 0) {
-        document.getElementById("matchMessage").textContent = "";
+        const card = event.target;
+        if(card.classList.contains('flipped') || card.classList.contains('matched')) return; //checken ob eh nicht 2 mal die gleiche karte
 
-        let cardText = document.getElementById("cardText" + cardNumb);
-        console.log("Clicked card" + cardText);
+        matchMessage.textContent = "";
+        card.classList.add('flipped');
+        card.textContent = card.dataset.symbol;
+        flippedCards.push(card);
 
-        if (cardText.textContent === "?") {
-            //console.log("Im if-statement");
-            cardText.textContent = cards[cardNumb];
-            document.getElementById("card" + cardNumb).style.backgroundColor = "#ff9500";
-            console.log(cards[cardNumb]);
-        
-            if(!cardOne) {
-                cardOne = cardText;
-            } else {
-                cardTwo = cardText;
+        if(flippedCards.length >= 2) {
                 checkMatchProcess = 1;
                 checkMatch();
             }
-        }
     }
 }
 
-
+//MATCH WIRD GECHWECKT
 function checkMatch(){
     moveTracker++;
-    document.getElementById("moveMessage").textContent = moveTracker + " Moves";
+    moveMessage.textContent = moveTracker + " Moves";
 
-    if(cardOne.textContent === cardTwo.textContent){
-        console.log("Match");
+    if(flippedCards[0].dataset.symbol === flippedCards[1].dataset.symbol){
+        matchMessage.textContent = "It's a Match!";
+        flippedCards[0].classList.remove('flipped');
+        flippedCards[0].classList.add('matched');
+        flippedCards[1].classList.remove('flipped');
+        flippedCards[1].classList.add('matched');
 
-        document.getElementById("matchMessage").textContent = "It's a Match!";
-        cardOne.parentElement.style.backgroundColor = "#489c56";
-        cardTwo.parentElement.style.backgroundColor = "#489c56";
-        
         undoCards();
         matchCounter++;
+        matchesMessage.textContent = matchCounter + " Matches";
 
         //ALLE MATCHES
-        if(matchCounter >= 4) {
-            document.getElementById("winningMessage").style.display = "block";
+        if(matchCounter >= cards.length / 2) {
+            winningMessage.style.display = "block";
+            document.getElementById("moveMessageFinal").textContent = "You won in " + moveTracker + " moves!";
         }
     } else {
-        setTimeout(undoClicked, 1000);
+        setTimeout(undoClicked, 800);
     }
 }
 
+//KARTEN WERDEN WIEDER UMGEDREHT
 function undoClicked() {
-    cardOne.textContent = "?";
-    cardTwo.textContent = "?";
-    cardOne.parentElement.style.backgroundColor = "#007bff";
-    cardTwo.parentElement.style.backgroundColor = "#007bff";
+    flippedCards[0].classList.remove('flipped');
+    flippedCards[1].classList.remove('flipped');
+    flippedCards[0].textContent = "";
+    flippedCards[1].textContent = "";
     undoCards();
 }
 
 function undoCards() {
-    cardOne = null;
-    cardTwo = null;
+    flippedCards = [];
     checkMatchProcess = 0;
 }
+
+//BUTTON NEUES GAME
+document.getElementById("newGame").addEventListener("click", resetGame);
+document.getElementById("newGame2").addEventListener("click", resetGame);
+
+function resetGame() {
+    checkMatchProcess = 0;
+    flippedCards = [];
+    moveTracker = 0;
+    matchCounter = 0;
+
+    moveMessage.textContent = moveTracker + " Moves";
+    matchesMessage.textContent = matchCounter + " Matches";
+    matchMessage.textContent = "";
+    winningMessage.style.display = "none";
+
+    const allCards = document.querySelectorAll('.card');
+    allCards.forEach(card => {
+        card.classList.remove('matched');
+        card.textContent = "";
+    });
+
+    setupGame();
+};
+
+setupGame();
