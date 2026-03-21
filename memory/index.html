@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">Memory Game</h1>
+        <div id="game-board" class="row justify-content-center">
+            <div onclick="clicked(0)" class="card" id="card0">
+                <p id="cardText0">?</p>
+            </div>
+            <div onclick="clicked(1)" class="card" id="card1">
+                <p id="cardText1">?</p>
+            </div>
+            <div onclick="clicked(2)" class="card" id="card2">
+                <p id="cardText2">?</p>
+            </div>
+            <div onclick="clicked(3)" class="card" id="card3">
+                <p id="cardText3">?</p>
+            </div>
+            <div onclick="clicked(4)" class="card" id="card4">
+                <p id="cardText4">?</p>
+            </div>
+            <div onclick="clicked(5)" class="card" id="card5">
+                <p id="cardText5">?</p>
+            </div>
+            <div onclick="clicked(6)" class="card" id="card6">
+                <p id="cardText6">?</p>
+            </div>
+            <div onclick="clicked(7)" class="card" id="card7">
+                <p id="cardText7">?</p>
+            </div>
+        </div>
+        <p class="mt-4" id="moveMessage">0 Moves</p>
+        <h2 class="mt-2" id="matchMessage"></h2>
+
+        <div id="winningMessage">
+            <h1>You won!</h1>
+            <p>Do you want to play another round?</p>
+            <button onclick="location.reload()">New Game</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

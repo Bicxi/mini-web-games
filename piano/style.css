@@ -1,0 +1,36 @@
+/*piano*/
+#piano{
+    margin-bottom: 1rem;
+    margin-top: -300px;
+}
+.key{
+    width: 100px;
+    height: 480px;
+    padding-top: 10px;
+    color: rgb(158, 158, 158);
+    border-style: solid none solid solid;
+    border-color: rgb(80, 76, 76);
+}
+.keyboardButton{
+    width: 100px;
+}
+.blackKey{
+    width: 60px;
+    height: 300px;
+    padding-top: 10px;
+    margin: 0 20px;
+    color: rgb(255, 255, 255);
+    background-color: black;
+    z-index: 1;
+}
+.blackKeyboardButton{
+    width: 60px;
+    margin: 0 20px;
+    margin-bottom: 1rem;
+}
+#keyB{
+    border-style: solid;
+}
+#keyEis{
+    background-color: rgba(255, 255, 255, 0);
+}

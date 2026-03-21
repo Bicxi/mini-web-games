@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Piano</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <div class="container text-center my-5">
+        <h1>Virtual Piano</h1>
+        <p class="mb-4">Press the following keys to play the notes:</p>
+        <!--<ul class="list-inline">
+            <li class="list-inline-item"><strong>A</strong> - C</li>
+            <li class="list-inline-item"><strong>S</strong> - D</li>
+            <li class="list-inline-item"><strong>D</strong> - E</li>
+            <li class="list-inline-item"><strong>F</strong> - F</li>
+            <li class="list-inline-item"><strong>J</strong> - G</li>
+            <li class="list-inline-item"><strong>K</strong> - A</li>
+            <li class="list-inline-item"><strong>L</strong> - H</li>
+        </ul>-->
+        <div id="blackKeyboard" class="d-flex justify-content-center"> <!--BESCHRIFTUNG-->
+            <div class="blackKeyboardButton">W</div>
+            <div class="blackKeyboardButton">E</div>
+            <div class="blackKeyboardButton"></div>
+            <div class="blackKeyboardButton">U</div>
+            <div class="blackKeyboardButton">I</div>
+            <div class="blackKeyboardButton">O</div>
+        </div>
+        <div id="pianoBlackKeys" class="d-flex justify-content-center">
+            <!-- black keys with IDs for JavaScript interaction -->
+            <div class="blackKey" id="keyCis">c#</div>
+            <div class="blackKey" id="keyDis">d#</div>
+            <div class="blackKey" id="keyEis"></div>
+            <div class="blackKey" id="keyFis">f#</div>
+            <div class="blackKey" id="keyGis">g#</div>
+            <div class="blackKey" id="keyAis">a#</div>
+        </div>
+        <div id="piano" class="d-flex justify-content-center">
+            <!-- Piano keys with IDs for JavaScript interaction -->
+            <div class="key" id="keyC">c</div>
+            <div class="key" id="keyD">d</div>
+            <div class="key" id="keyE">e</div>
+            <div class="key" id="keyF">f</div>
+            <div class="key" id="keyG">g</div>
+            <div class="key" id="keyA">a</div>
+            <div class="key" id="keyB">h</div>
+        </div>
+        <div id="keyboard" class="d-flex justify-content-center"> <!--BESCHRIFTUNG-->
+            <div class="keyboardButton">A</div>
+            <div class="keyboardButton">S</div>
+            <div class="keyboardButton">D</div>
+            <div class="keyboardButton">F</div>
+            <div class="keyboardButton">J</div>
+            <div class="keyboardButton">K</div>
+            <div class="keyboardButton">L</div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
