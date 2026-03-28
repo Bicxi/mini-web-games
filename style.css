@@ -1,7 +1,5 @@
-header{
-    background-color: #db6437;
-    color: #004643;
+/* BUTTONS CONTAINER */
+.buttons {
+    margin: 40px 15% 50px 15%;
 }
-body{
-    color: #004643;
-}
+
