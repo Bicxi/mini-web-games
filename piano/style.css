@@ -1,6 +1,9 @@
 /*piano*/
+div{
+    color: var(--bs-primary);
+}
 #piano{
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     margin-top: -300px;
 }
 .key{
@@ -8,9 +11,15 @@
     height: 480px;
     padding-top: 10px;
     color: rgb(158, 158, 158);
+    background-color: white;
     border-style: solid none solid solid;
     border-color: rgb(80, 76, 76);
+} .key:hover{
+    background-color: #eaf1f7 !important;
+} .key:active {
+    background-color: var(--bs-tertiary) !important;
 }
+
 .keyboardButton{
     width: 100px;
 }
@@ -22,15 +31,24 @@
     color: rgb(255, 255, 255);
     background-color: black;
     z-index: 1;
+} .blackKey:hover{
+    background-color: #272a2d !important;
+} .blackKey:active {
+    background-color: var(--bs-primary) !important;
 }
+
 .blackKeyboardButton{
     width: 60px;
     margin: 0 20px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 #keyB{
     border-style: solid;
 }
 #keyEis{
     background-color: rgba(255, 255, 255, 0);
+} #keyEis:hover{
+    background-color: rgba(255, 255, 255, 0) !important;
+} #keyEis:active {
+    background-color: rgba(255, 255, 255, 0) !important;
 }

@@ -52,6 +52,7 @@ span {
     color: var(--bs-primary);
 }
 
+/* BUTTONS */
 .btn, .btn:focus, .btn:focus-visible {
     padding: 10px 20px;
     margin: 6px;
@@ -88,4 +89,32 @@ span {
     box-shadow: 0 0 1rem rgba(var(--bs-primary-rgb), 0.4);
     background-color: var(--bs-tertiary) !important;
     color: var(--bs-primary) !important;
+}
+.btn-secondary:hover {
+    background-color: var(--bs-tertiary);
+    color: var(--bs-primary);
+}.btn-secondary:active {
+    background-color: var(--bs-primary) !important;
+}
+
+/* FORMS */
+.form-control, .form-control:focus, .form-control:focus-visible {
+    font-size: 1rem;
+    font-family: "Poppins";
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgba(var(--bs-primary), 0.8);
+    background-color: var(--bs-tertiary);
+    background-clip: padding-box;
+    outline: none;
+    border: 1px solid var(--bs-primary);
+    border-radius: .25rem;
+    box-shadow: 0 0 1rem rgba(var(--bs-primary), 0.4);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}.form-control:hover {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 1rem rgba(var(--bs-primary), 0.4);
+}.form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 1rem rgba(var(--bs-primary), 0.4);
 }

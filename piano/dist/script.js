@@ -21,7 +21,7 @@ class PianoKey {
     highlight() {
         const el = document.getElementById(this.id);
         if (el)
-            el.style.backgroundColor = this.color === "black" ? "#4c4c4c" : "#d9d9d9";
+            el.style.backgroundColor = this.color === "black" ? "#004D80" : "#a0d8e7";
     }
     unhighlight() {
         const el = document.getElementById(this.id);
