@@ -191,12 +191,7 @@ function flipCard(event: Event): void {
 
     const card = event.currentTarget as HTMLElement;
 
-    if (
-        card.classList.contains("flipped") ||
-        card.classList.contains("matched")
-    ) {
-        return;
-    }
+    if (card.classList.contains("flipped") || card.classList.contains("matched")) { return; }
 
     card.classList.add("flipped");
     card.innerHTML = `<i class="fa-brands ${card.dataset.symbol}"></i>`;
