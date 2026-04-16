@@ -1,0 +1,123 @@
+/* FARBEN */
+:root {
+    --bs-primary: #004D80;
+    --bs-primary-rgb: 0, 77, 128;
+    --bs-secondary: #5db8d4;
+    --bs-secondary-rgb: 93, 184, 212;
+    --bs-tertiary: #a0d8e7;
+    --bs-tertiary-rgb: 160, 216, 231;
+    --bs-quaternary: #79B6C7;
+    --bs-quaternary-rgb: 121, 182, 199;
+    --bs-success: #9ae09a;
+    --bs-danger: #800000;
+    --bs-gradient: linear-gradient(90deg, var(--bs-secondary), var(--bs-tertiary));
+}
+
+.bg-tertiary {
+  background-color: var(--bs-tertiary);
+}
+.text-tertiary {
+  color: var(--bs-tertiary);
+}
+
+.bg-quaternary {
+  background-color: var(--bs-quaternary);
+}
+
+.bg-gradient {
+    background-image: var(--bs-gradient);
+}
+
+/* ALLGMEIN */
+header{
+    color: var(--bs-primary);
+}
+body{
+    background-image: var(--bs-gradient);
+    font-family: "Poppins";
+}
+
+h1, h2, h3 {
+    font-family: "Prata";
+    font-weight: 600;
+    color: var(--bs-primary);
+}
+
+p, label {
+    font-family: "Poppins";
+    font-weight: 300;
+    color: var(--bs-primary);
+}
+
+span {
+    font-family: "Poppins";
+    font-weight: 300;
+    color: var(--bs-primary);
+}
+
+/* BUTTONS */
+.btn, .btn:focus, .btn:focus-visible {
+    padding: 10px 20px;
+    margin: 6px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: var(--bs-primary);
+    outline-style: none;
+    background-color: var(--bs-tertiary);
+    color: var(--bs-primary);
+    font-family: "Poppins";
+    font-weight: 400;
+    box-shadow: none;
+} .btn:hover {
+    transform: scale(1.05); /* 5% bigger */
+    box-shadow: 0 0 1rem rgba(var(--bs-primary-rgb), 0.4);
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
+} .btn:active {
+    box-shadow: 0 0 1rem rgba(var(--bs-primary-rgb), 0.4) !important;
+    background-color: var(--bs-primary);
+    color: white;
+    border-color: var(--bs-primary);
+    outline-style: solid;
+    outline-color: var(--bs-primary);
+    outline-width: 1px;
+}
+.btn-primary, .btn-primary:focus, .btn-primary:focus-visible {
+    background-color: var(--bs-primary);
+    color: white;
+} .btn-primary:hover {
+    background-color: var(--bs-primary);
+    color: white;
+}.btn-primary:active {
+    box-shadow: 0 0 1rem rgba(var(--bs-primary-rgb), 0.4);
+    background-color: var(--bs-tertiary) !important;
+    color: var(--bs-primary) !important;
+}
+.btn-secondary:hover {
+    background-color: var(--bs-tertiary);
+    color: var(--bs-primary);
+}.btn-secondary:active {
+    background-color: var(--bs-primary) !important;
+}
+
+/* FORMS */
+.form-control, .form-control:focus, .form-control:focus-visible {
+    font-size: 1rem;
+    font-family: "Poppins";
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgba(var(--bs-primary), 0.8);
+    background-color: var(--bs-tertiary);
+    background-clip: padding-box;
+    outline: none;
+    border: 1px solid var(--bs-primary);
+    border-radius: .25rem;
+    box-shadow: 0 0 1rem rgba(var(--bs-primary), 0.4);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}.form-control:hover {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 1rem rgba(var(--bs-primary), 0.4);
+}.form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 1rem rgba(var(--bs-primary), 0.4);
+}

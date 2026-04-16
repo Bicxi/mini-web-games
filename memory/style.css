@@ -6,6 +6,7 @@ p {
     display: grid;
     grid-template-columns: repeat(4, 100px);
     gap: 10px;
+    justify-content: center;
 }
 
 .card {
@@ -20,14 +21,20 @@ p {
     cursor: pointer;
     border-radius: 5px;
     user-select: none;
+    transition: all 0.3s ease;
+}
+.card:hover {
+    transform: scale(1.03);
 }
 .card.flipped {
     background-color: var(--bs-tertiary);
     border-color: var(--bs-primary);
+    transform: scale(1.05);
 }
 .card.matched {
     background-color: #b3dcba;
     border-color: var(--bs-primary);
+    transform: scale(1.05);
 }
 
 #matchMessage {
@@ -44,4 +51,18 @@ p {
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    text-align: center;
+}
+
+#currentPlayer {
+    transition: all 0.3s ease;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.active-player {
+    color: var(--bs-secondary);
+    transform: scale(1.1);
+    font-weight: bold;
 }
