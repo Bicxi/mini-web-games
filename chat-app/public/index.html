@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Messenger App (Week 8)</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Messenger (Week 8 Demo)</h1>
+
+  <!--START BLOCK-->
+  <div id="start-block" class="block">
+    <p>Welcome to our Chatting-App! Login or Register to start:</p>
+  </div>
+
+  <!--LOGIN BLOCK-->
+  <div id="login-block" class="block" style="display: none;">
+    <input id="email" class="inpfield" placeholder="email" />
+    <input id="password" class="inpfield" type="password" placeholder="password" />
+    <button id="login-btn" class="btn">Login</button>
+    </div>
+
+  <!--REGISTRATION BLOCK-->
+  <div id="register-block" class="block" style="display: none;">
+    <input id="name" class="inpfield" placeholder="name" />
+    <input id="emailReg" class="inpfield" placeholder="email" />
+    <input id="passwordReg" class="inpfield" type="password" />
+    <input id="group" class="inpfield" placeholder="group id" />
+    <button id="register-btn" class="btn">Register</button>
+  </div>
+
+  <!--USER LIST BLOCK-->
+  <div id="users-block" class="block" style="display:none;">
+    <h2>User List</h2>
+    <ul id="users-list"></ul>
+  </div>
+
+  <!--Buttons-->
+  <div id="buttons">
+    <button id="show-login-btn" class="btn">Login Page</button>
+    <button id="show-register-btn" class="btn">Register Page</button>
+  </div>
+
+  <div id="chat-container"></div>
+  <!-- If using a bundler or compiled TS, you'd reference something in dist/ -->
+  <script type="module" src="../dist/main.js"></script>
+</body>
+</html>
+
+<!--
+/chat-app
+├── /src
+│   ├── ApiService.ts      // Handles API calls (login, register, get users, send message, etc.)
+│   ├── ChatUI.ts          // Manages the frontend UI (DOM interactions)
+│   ├── StateManager.ts    // Stores global state (token, user ID, etc.)
+│   └── main.ts            // Main entry – orchestrates login, sending, loading conversation
+├── /public
+│   ├── index.html         // Basic layout
+│   ├── styles.css         // Optional styling
+├── tsconfig.json
+└── package.json
+-->

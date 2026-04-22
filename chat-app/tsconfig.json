@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2020",           // JavaScript version to compile to
+    "module": "es6",              // Module system
+    "strict": true,               // Enable all strict type checking
+    "outDir": "./dist",           // Where to put compiled JS
+    "rootDir": "./src",           // Where your TS source is
+    "esModuleInterop": true       // Helps with CommonJS/ES modules
+  },
+  "include": ["src/*"],
+  "exclude": ["node_modules"]
+}
