@@ -81,6 +81,7 @@ export class ApiService {
     });
 
     const data = await response.json();
+    //console.log("Login response data:", data);
 
     if (!data.token || !data.id) {
       console.error("Login failed - invalid response:", data);

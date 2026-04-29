@@ -36,6 +36,7 @@ export class ApiService {
                 body: new URLSearchParams({ username_or_email: usernameOrEmail, password }),
             });
             const data = await response.json();
+            console.log("Login response data:", data);
             if (!data.token || !data.id) {
                 console.error("Login failed - invalid response:", data);
                 return { success: false, error: "Login failed" };

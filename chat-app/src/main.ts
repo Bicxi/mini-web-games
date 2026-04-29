@@ -31,8 +31,8 @@ async function main() {
     }
 
     //Zum späteren nutzen - Statemanager wird nur am Anfang befüllt mit Daten aus Backend
-    StateManager.setToken(res.token!);
-    StateManager.setUserId(res.id!);
+    //StateManager.setToken(res.token!);
+    //StateManager.setUserId(res.id!);
 
     console.log("User registered");
   });
