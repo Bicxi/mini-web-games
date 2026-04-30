@@ -1,11 +1,14 @@
 // src/main.ts
 
-import { ApiService } from "./ApiService.js";
+import { ApiService, User } from "./ApiService.js";
 import { ChatUI } from "./ChatUI.js";
-import { StateManager } from "./StateManager.js"; // if you want
+import { StateManager } from "./StateManager.js";
 
 async function main() {
   console.log("MAIN RUNNING");
+
+  let selectedUser: User | null = null;
+  let chatInterval: any = null;
 
   // manage ui blocks
   document.getElementById("show-login-btn")?.addEventListener("click", () => {
@@ -16,7 +19,7 @@ async function main() {
     ChatUI.showBlock("register-block");
   });
 
-  // 1) Possibly register or login a user
+  // REGISTER
   document.getElementById("register-btn")?.addEventListener("click", async () => {
     const name = (document.getElementById("name") as HTMLInputElement).value;
     const email = (document.getElementById("emailReg") as HTMLInputElement).value;
@@ -30,16 +33,13 @@ async function main() {
       return;
     }
 
-    //Zum späteren nutzen - Statemanager wird nur am Anfang befüllt mit Daten aus Backend
-    //StateManager.setToken(res.token!);
-    //StateManager.setUserId(res.id!);
+    StateManager.setToken(res.token!);
+    StateManager.setUserId(res.id!);
 
     console.log("User registered");
   });
 
-
-  //AB HIER EINGELOOGED
-
+  // LOGIN
   document.getElementById("login-btn")?.addEventListener("click", async () => {
 
     const email = (document.getElementById("email") as HTMLInputElement).value;
@@ -48,56 +48,113 @@ async function main() {
     const res = await ApiService.loginUser(email, password);
 
     if (res.error) {
-        console.error(res.error);
-        return;
+      console.error(res.error);
+      return;
     }
 
-    //Für später
     StateManager.setToken(res.token!);
     StateManager.setUserId(res.id!);
 
     console.log("Logged in");
 
-    // 2) Fetch the user list
-    const usersResp = await ApiService.getUsers();
-    console.log("USERS:", usersResp);
-
     const list = document.getElementById("users-list");
 
-    if (list && Array.isArray(usersResp)) {
-      list.innerHTML = "";
+    if (list) {
+      const ui = new ChatUI();
 
-      usersResp.forEach((user) => {
-        const li = document.createElement("li");
-        li.className = "person";
-        li.textContent = `${user.name} (ID: ${user.id})`;
-        list.appendChild(li);
-      });
+      await ui.showUsers(
+        list,
+        StateManager.getUserId()!,
+        async (user: User) => {
 
-      ChatUI.showBlock("users-block");
-      ChatUI.notShowButtons();
+          selectedUser = user;
+
+          if (chatInterval) clearInterval(chatInterval); //altes intervall löschen, damit nicht mehrere gleichzeitig laufen
+
+          const container = document.getElementById("chat-messages");
+          if (!container) return;
+
+          const ui = new ChatUI();
+
+          // 1: sofort laden
+          await ui.renderConversation(
+            container,
+            {
+              id: StateManager.getUserId()!,
+              name: "Me",
+              group_id: "1"
+            },
+            selectedUser
+          );
+
+          // 2: interval starten
+          chatInterval = setInterval(async () => {
+
+            if (!selectedUser) return;
+
+            const container = document.getElementById("chat-messages");
+            if (!container) return;
+
+            const ui = new ChatUI();
+
+            await ui.renderConversation(
+              container,
+              {
+                id: StateManager.getUserId()!,
+                name: "Me",
+                group_id: "1"
+              },
+              selectedUser
+            );
+
+          }, 15000);
+        }
+      );
     }
 
-    // 3) Send a message to a hardcoded user
+    ChatUI.notShowButtons();
+    ChatUI.showBlock("dashboard-block");
+  });
+
+  // SEND MESSAGE
+  document.getElementById("chat-form")?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (!selectedUser) {
+      console.error("No user selected");
+      return;
+    }
+
+    const input = document.getElementById("chat-input") as HTMLInputElement;
+    const message = input.value.trim();
+    if (!message) return;
+
     const sending = await ApiService.sendMessage(
-      StateManager.getUserId()!, //sender
-      "1574", //Bici3
-      "Hello from TypeScript!"
-    );    
+      StateManager.getUserId()!,
+      selectedUser.id,
+      message
+    );
 
     console.log("Message sent?", sending);
 
+    input.value = "";
+
+    const container = document.getElementById("chat-messages");
+
+    if (container) {
+      const ui = new ChatUI();
+
+      await ui.renderConversation(
+        container,
+        {
+          id: StateManager.getUserId()!,
+          name: "Me",
+          group_id: "1"
+        },
+        selectedUser
+      );
+    }
   });
-
-
-
-  // 4) Render a chat UI
-  const container = document.getElementById("chat-container");
-  if (container) {
-    const ui = new ChatUI();
-    // For next week, you'd do something like:
-    // ui.renderConversation(container, {id: "1", name: "Me", group_id: "1"}, {id: "2", name: "Bob", group_id: "1"});
-  }
 }
 
 document.addEventListener("DOMContentLoaded", main);

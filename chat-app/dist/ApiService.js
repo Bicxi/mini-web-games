@@ -9,7 +9,6 @@ export class ApiService {
     }
     // REGISTRIEREN
     static async registerUser(name, email, password, groupId) {
-        // POST /registrieren.php with FormData or JSON
         try {
             const response = await fetch(`${BASE_URL}registrieren.php`, {
                 method: "POST",
@@ -36,7 +35,6 @@ export class ApiService {
                 body: new URLSearchParams({ username_or_email: usernameOrEmail, password }),
             });
             const data = await response.json();
-            console.log("Login response data:", data);
             if (!data.token || !data.id) {
                 console.error("Login failed - invalid response:", data);
                 return { success: false, error: "Login failed" };
@@ -50,7 +48,7 @@ export class ApiService {
             return { success: false, error: "API error" };
         }
     }
-    // Get Users
+    // GET USERS
     static async getUsers() {
         try {
             const token = this.token;
@@ -64,7 +62,19 @@ export class ApiService {
             return { error: "API error" };
         }
     }
-    // Send Message
+    // GET CONVERSATION
+    static async getConversation(user1Id, user2Id) {
+        try {
+            const response = await fetch(`${BASE_URL}get_conversation.php?token=${this.token}&user1_id=${user1Id}&user2_id=${user2Id}`);
+            const data = await response.json();
+            return data;
+        }
+        catch (error) {
+            console.error("API Error:", error);
+            return [];
+        }
+    }
+    // SEND MESSAGE
     static async sendMessage(senderId, receiverId, message) {
         try {
             const response = await fetch(`${BASE_URL}send_message.php`, {
@@ -83,11 +93,11 @@ export class ApiService {
             return { success: false, error: "API error" };
         }
     }
-    //get messages
+    // GET MESSAGE 
     static async fetchMessages() {
         const response = await fetch(`${BASE_URL}get_messages.php`);
         return await response.json();
     }
-}
+} //uwu
 ApiService.token = null;
 ApiService.userId = null; // Optionally store user ID

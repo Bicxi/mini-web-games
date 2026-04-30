@@ -4,7 +4,7 @@ export interface ApiResponse {
   success?: boolean;
   error?: string;
   token?: string;
-  id?: string; // e.g. user ID after register or login
+  id?: string;
 }
 
 export interface User {
@@ -13,12 +13,11 @@ export interface User {
   group_id: string;
 }
 
-// Example chat message
 export interface ChatMessage {
   sender_id: string;
   receiver_id: string;
   message: string;
-  timestamp?: number; // if your API returns one
+  timestamp?: number;
 }
 
 const BASE_URL = "http://webp-ilv-backend.cs.technikum-wien.at/messenger/";
@@ -43,7 +42,7 @@ export class ApiService {
     password: string,
     groupId: string
   ): Promise<ApiResponse> {
-    // POST /registrieren.php with FormData or JSON
+
     try {
       const response = await fetch(`${BASE_URL}registrieren.php`, {
         method: "POST",
@@ -81,7 +80,6 @@ export class ApiService {
     });
 
     const data = await response.json();
-    //console.log("Login response data:", data);
 
     if (!data.token || !data.id) {
       console.error("Login failed - invalid response:", data);
@@ -99,7 +97,9 @@ export class ApiService {
   }
 }
 
-  // Get Users
+
+  // GET USERS
+
   static async getUsers(): Promise<User[] | { error?: string }> {
     try {
     const token = this.token;
@@ -119,7 +119,31 @@ export class ApiService {
     }
   }
 
-  // Send Message
+  
+  // GET CONVERSATION
+
+  static async getConversation(
+    user1Id: string,
+    user2Id: string
+  ): Promise<ChatMessage[]> {
+    try {
+      const response = await fetch(
+        `${BASE_URL}get_conversation.php?token=${this.token}&user1_id=${user1Id}&user2_id=${user2Id}`
+      );
+
+      const data = await response.json();
+
+      return data;
+
+    } catch (error) {
+      console.error("API Error:", error);
+      return [];
+    }
+  }
+
+  
+  // SEND MESSAGE
+
   static async sendMessage(
     senderId: string,
     receiverId: string,
@@ -146,10 +170,12 @@ export class ApiService {
   }
 }
 
+ 
+  // GET MESSAGE 
 
-  //get messages
   static async fetchMessages(): Promise<ChatMessage[]> {
     const response = await fetch(`${BASE_URL}get_messages.php`);
     return await response.json();
   }
-}
+
+}//uwu

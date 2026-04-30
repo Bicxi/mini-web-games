@@ -11,9 +11,7 @@
 
 </head>
 <body>
-  <button class="btn" onclick="window.location.href='../../index.html';">Home</button>
-
-  <h1>Messenger (Week 8 Demo)</h1>
+  <h1>Messenger</h1>
 
   <!--START BLOCK-->
   <div id="start-block" class="block">
@@ -22,8 +20,8 @@
 
   <!--LOGIN BLOCK-->
   <div id="login-block" class="block" style="display: none;">
-    <input id="email" class="inpfield" placeholder="email" />
-    <input id="password" class="inpfield" type="password" placeholder="password" />
+    <input id="email" class="inpfield" placeholder="bici3@test.at" />
+    <input id="password" class="inpfield" type="password" placeholder="Bici33" />
     <button id="login-btn" class="btn">Login</button>
     </div>
 
@@ -36,10 +34,28 @@
     <button id="register-btn" class="btn">Register</button>
   </div>
 
-  <!--USER LIST BLOCK-->
-  <div id="users-block" class="block" style="display:none;">
-    <h2>User List</h2>
-    <ul id="users-list"></ul>
+  <!--DASHBOARD-->
+  <div id="dashboard-block" class="block" style="display:none;">
+    <!--USER LIST BLOCK-->
+    <div id="users-block">
+      <h2>Your friends!</h2>
+      <ul id="users-list"></ul>
+    </div>
+
+    <!--CHAT WINDOW-->
+    <div id="chat-block">
+      <h2 id="chat-header"></h2>
+
+      <!--Send form-->
+      <form id="chat-form">
+        <input type="text" id="chat-input" class="inpfield" placeholder="Type your message..." />
+        <button type="submit" id="chat-btn" class="btn">Send</button>
+      </form>
+
+      <div id="chat-messages">
+        <!-- Messages go here -->
+      </div>
+    </div>
   </div>
 
   <!--Buttons-->
@@ -48,7 +64,6 @@
     <button id="show-register-btn" class="btn">Register Page</button>
   </div>
 
-  <div id="chat-container"></div>
   <!-- If using a bundler or compiled TS, you'd reference something in dist/ -->
   <script type="module" src="../dist/main.js"></script>
 </body>
